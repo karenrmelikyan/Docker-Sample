@@ -1,4 +1,4 @@
 <?php
 
-echo 'Hello Docker';
+echo 'Hello Docker & docker-compose';
 
