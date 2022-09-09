@@ -2,7 +2,7 @@
 # create new image with apache server
 FROM php:7.4-apache
 
-# copy everything from current dir (where locates Dockerfile)
+# copy project from current dir (where locates Dockerfile)
 # to apache dir /var/www/html
 COPY . /var/www/html
 
