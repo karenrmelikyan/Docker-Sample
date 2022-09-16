@@ -1,23 +1,29 @@
-version: '3.1'
-
-# Collect 3 services to one project (container)
+version: '3'
 
 services:
-  # add php & apache from Dockerfile ( . it's  mean current dir where locates Dockerfile)
-  php:
-    build: .
-    ports:
-      - 8081:80
 
-  # the image took from Docker hub
-  db:
+  php:
+    build: ./docker/php
+    volumes:
+      - './project:/var/www/html'
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - './project:/var/www/html'
+      - './docker/nginx/conf.d:/etc/nginx/conf.d'
+
+  db: # Laravel .env DB_HOST=db
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 12345
+    ports:
+      - 3306:3306
 
-  # the image took from Docker hub
   phpmyadmin:
     image: phpmyadmin
     restart: always
@@ -25,7 +31,7 @@ services:
       - 8080:80
     environment:
       - PMA_ARBITRARY=1
+      - UPLOAD_LIMIT=8M # increase dump size limit if necessary
 
 
-# build command: docker-compose build
-# run command: docker-compose up
+
