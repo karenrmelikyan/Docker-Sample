@@ -4,6 +4,7 @@ services:
 
   php:
     build: ./docker/php
+    container_name: php_7.2_fpm
     volumes:
       - './project:/var/www/html'
 
@@ -15,8 +16,9 @@ services:
       - './project:/var/www/html'
       - './docker/nginx/conf.d:/etc/nginx/conf.d'
 
-  db: # Laravel .env DB_HOST=db
+  db:
     image: mysql
+    # container_name: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
@@ -32,6 +34,4 @@ services:
     environment:
       - PMA_ARBITRARY=1
       - UPLOAD_LIMIT=8M # increase dump size limit if necessary
-
-
-
+      - MAX_EXECUTION_TIME=3600 # increase PHP execution time if necessary

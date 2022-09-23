@@ -1,0 +1,9 @@
+FROM node:14.14.0-alpine
+WORKDIR /app
+COPY ./package.json ./
+RUN npm i
+COPY . .
+CMD ["npm", "run", "start"]
+
+# for client's image building: docker build -f Dockerfile.dev -t stylerhun/multi-client .
+# for client running: docker run -it -p 4002:3000 stylerhun/multi-client
