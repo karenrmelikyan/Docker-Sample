@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+
+  php:
+    build: ./docker/php
+    container_name: php
+    volumes:
+      - './project:/var/www/html'
+      - './docker/php/php.ini:/usr/local/etc/php/php.ini'
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8901:8901"
+    volumes:
+      - './project:/var/www/html'
+      - './docker/nginx/conf.d:/etc/nginx/conf.d'
+
+  db:
+    image: mysql
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_TCP_PORT: 3636
+    ports:
+      - "3636:3636"
+
+#  phpmyadmin:
+#    image: phpmyadmin
+#    restart: always
+#    ports:
+#      - "8080:80"
+#    environment:
+#      - PMA_ARBITRARY=1
+#      - UPLOAD_LIMIT=8M # increase dump size limit if necessary
+#      - MAX_EXECUTION_TIME=3600 # increase PHP execution time if necessary
+
+
+# stop all: docker compose down (WARNING: lost DB)
+# build all: docker compose up -d
