@@ -8,29 +8,26 @@ FROM php:8.1.1-fpm
 #  sed -i -e 's/post_max_size = 8M/post_max_size = 64M/' /usr/local/etc/php/php.ini && \
 #  sed -i -e 's/upload_max_filesize = 2M/upload_max_filesize = 8M/' /usr/local/etc/php/php.ini
 
-# installs
+# linux installs
 RUN apt-get update
 RUN apt-get install -y libgmp-dev
+RUN apt-get install -y libzip-dev
+RUN apt-get install -y zip
+RUN apt-get install -y git
+RUN apt-get install -y openssl
+RUN apt-get install -y curl
+
+# php extensions install
 RUN docker-php-ext-install gmp
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install zip
 
-# php-zip install
-RUN apt-get update
-RUN apt-get install -y \
-        libzip-dev \
-        zip \
-  && docker-php-ext-install zip
-
-# git install
-RUN apt-get -y update
-RUN apt-get -y install git
-
-
-# Install Composer
+# composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 EXPOSE 9000
+
 
 
 
