@@ -10,18 +10,21 @@ FROM php:8.1.1-fpm
 
 # linux installs
 RUN apt-get update
-RUN apt-get install -y libgmp-dev
-RUN apt-get install -y libzip-dev
-RUN apt-get install -y zip
-RUN apt-get install -y git
-RUN apt-get install -y openssl
-RUN apt-get install -y curl
+RUN apt-get install -y libgmp-dev \
+    libzip-dev \
+    zip \
+    git \
+    curl \
+    nano \
+    cron \
+    procps \
+    openssl
 
 # php extensions install
-RUN docker-php-ext-install gmp
-RUN docker-php-ext-install bcmath
-RUN docker-php-ext-install pdo_mysql
-RUN docker-php-ext-install zip
+RUN docker-php-ext-install zip \
+     gmp \
+     bcmath\
+     pdo_mysql
 
 # composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
