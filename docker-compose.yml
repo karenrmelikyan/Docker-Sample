@@ -29,15 +29,15 @@ services:
     ports:
       - "3636:3636"
 
-#  phpmyadmin:
-#    image: phpmyadmin
-#    restart: always
-#    ports:
-#      - "8080:80"
-#    environment:
-#      - PMA_ARBITRARY=1
-#      - UPLOAD_LIMIT=8M # increase dump size limit if necessary
-#      - MAX_EXECUTION_TIME=3600 # increase PHP execution time if necessary
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_ARBITRARY=1
+      - UPLOAD_LIMIT=8M # increase dump size limit if necessary
+      - MAX_EXECUTION_TIME=3600 # increase PHP execution time if necessary
 
 
 # stop all: docker compose down (WARNING: lost DB)
