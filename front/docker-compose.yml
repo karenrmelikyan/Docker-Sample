@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  node:
+    build: .
+    container_name: sb_node_14.1
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    volumes:
+      - ./:/app
+
+# docker-compose up --build --force-recreate -d
