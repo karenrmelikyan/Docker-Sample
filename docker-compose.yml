@@ -13,7 +13,7 @@ services:
     image: nginx:latest
     container_name: nginx
     ports:
-      - "8901:8901"
+      - "8901:89"
     volumes:
       - './:/var/www/html'
       - './docker/nginx/conf.d:/etc/nginx/conf.d'
